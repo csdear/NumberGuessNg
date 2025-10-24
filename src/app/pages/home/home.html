@@ -1,0 +1,21 @@
+<div class="hero bg-base-200 min-h-screen">
+  <div class="hero-content flex-col text-center">
+    <div class="max-w-md">
+      <h1 class="text-5xl font-bold">Today's Habits</h1>
+      <p class="py-6">Stay consistent. Crush your goals.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <div class="card w-72 bg-base-100 card-sm shadow-sm" *ngFor="let habit of habits; let i = index">
+        <div class="card-body">
+          <div class="top flex flex-row space-between">
+            <h2 class="card-title">{{habit.name}}</h2>
+            <input type="checkbox" checked="checked" class="checkbox" [(ngModel)]="habit.isCompleted" (click)="onCheckboxChange($event, i)"/>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
