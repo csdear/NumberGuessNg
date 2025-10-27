@@ -26,4 +26,10 @@ export class Home {
     this.habits[index].isCompleted = true;
     this.confettiService.launchConfetti(mouseEvent);
   }
+
+  inputChange(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    console.log(value);
+  }
+
 }

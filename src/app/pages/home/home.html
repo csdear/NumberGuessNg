@@ -13,9 +13,26 @@
             <h2 class="card-title">{{habit.name}}</h2>
             <input type="checkbox" checked="checked" class="checkbox" [(ngModel)]="habit.isCompleted" (click)="onCheckboxChange($event, i)"/>
           </div>
+          
         </div>
+        
       </div>
-
+      
+      <div class="card w-72 bg-base-100 card-sm shadow-sm flex flex-col justify-center items-center">
+        <h1 class="text-5xl font-bold">Bulls and Cows</h1>
+        <p>Rules for Bulls and Cows game <a href="https://en.wikipedia.org/wiki/Bulls_and_cows" target="_blank" class="link">here</a></p>
+        
+         
+            <input type="text"
+                    placeholder="Type here." 
+                    class="input input-primary mt-4"
+                    (change)="inputChange($event)" />
+            <button class="btn btn-primary mt-4">Primary</button>
+          
+      </div>
     </div>
   </div>
+  <div>
+  
+   </div>
 </div>
