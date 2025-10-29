@@ -27,9 +27,13 @@
                     placeholder="Type here." 
                     class="input input-primary mt-4"
                     (change)="inputChange($event)" />
-            <button class="btn btn-primary mt-4">Primary</button>
+            
+            <button 
+                class="btn btn-primary mt-4"
+                (click)="guessNumber()">Primary</button>
           
       </div>
+      <div>ERRORS? {{ errorText() }}</div>
     </div>
   </div>
   <div>
