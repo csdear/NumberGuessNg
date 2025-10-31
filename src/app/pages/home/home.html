@@ -1,42 +1,84 @@
-<div class="hero bg-base-200 min-h-screen">
-  <div class="hero-content flex-col text-center">
-    <div class="max-w-md">
-      <h1 class="text-5xl font-bold">Today's Habits</h1>
-      <p class="py-6">Stay consistent. Crush your goals.</p>
-    </div>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-      <div class="card w-72 bg-base-100 card-sm shadow-sm" *ngFor="let habit of habits; let i = index">
-        <div class="card-body">
-          <div class="top flex flex-row space-between">
-            <h2 class="card-title">{{habit.name}}</h2>
-            <input type="checkbox" checked="checked" class="checkbox" [(ngModel)]="habit.isCompleted" (click)="onCheckboxChange($event, i)"/>
-          </div>
-          
+<main class="min-h-screen bg-base-200 flex flex-col items-center py-12">
+  <div class="text-center mb-12">
+    <h1 class="text-5xl font-bold">🐂 BULLS AND COWS 🐄</h1>
+    
+<p class="mt-6 py-6 text-xl text-center text-green-400 tracking-widest bg-black rounded-xl border-4 border-green-700 shadow-[0_0_15px_#22c55e] p-4" style="font-family: 'Press Start 2P', cursive;">
+  PLEASE CONFIRM THE FOLLOWING BEFORE PLAYING!
+</p>
+  </div>
+
+  <!-- Habits Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+    <div
+      class="card w-72 bg-base-100 shadow-md hover:shadow-lg transition-shadow duration-200"
+      *ngFor="let habit of habits; let i = index"
+    >
+      <div class="card-body">
+        <div class="flex justify-between items-center">
+          <h2 class="card-title text-xl font-semibold">{{ habit.name }}</h2>
+          <input
+            type="checkbox"
+            class="checkbox checkbox-primary"
+            [(ngModel)]="habit.isCompleted"
+            (click)="onCheckboxChange($event, i)"
+          />
         </div>
-        
       </div>
-      
-      <div class="card w-72 bg-base-100 card-sm shadow-sm flex flex-col justify-center items-center">
-        <h1 class="text-5xl font-bold">Bulls and Cows</h1>
-        <p>Rules for Bulls and Cows game <a href="https://en.wikipedia.org/wiki/Bulls_and_cows" target="_blank" class="link">here</a></p>
-        
-         
-            <input type="text"
-                    placeholder="Type here." 
-                    class="input input-primary mt-4"
-                    (change)="inputChange($event)" />
-            
-            <button 
-                class="btn btn-primary mt-4"
-                (click)="guessNumber()">Primary</button>
-          
-      </div>
-      <div>ERRORS? {{ errorText() }}</div>
     </div>
   </div>
-  <div>
-  
-   </div>
-</div>
+
+  <!-- Bulls and Cows Section -->
+  <div class="card w-full max-w-md bg-base-100 shadow-lg p-8 flex flex-col items-center text-center">
+    <h2 class="text-3xl font-bold mb-2">Bulls and Cows</h2>
+    <p class="mb-4 text-gray-600">
+      Rules for Bulls and Cows game
+      <a
+        href="https://en.wikipedia.org/wiki/Bulls_and_cows"
+        target="_blank"
+        class="link text-blue-500 hover:underline"
+        >here</a
+      >.
+    </p>
+
+    <input
+      type="text"
+      placeholder="Enter your guess..."
+      class="input input-primary w-full mt-2"
+      (change)="inputChange($event)"
+    />
+
+    <button
+      class="btn btn-primary w-full mt-4"
+      (click)="guessNumber()"
+    >
+      Submit Guess
+    </button>
+
+    <!-- Messages -->
+    <div class="mt-4 w-full">
+      <div *ngIf="errorText()" class="text-red-600 font-medium">
+        {{ errorText() }}
+      </div>
+
+      <div *ngIf="message()" class="text-green-600 font-semibold mt-2">
+        {{ message() }}
+      </div>
+    </div>
+
+    <!-- Guess History -->
+    <div class="mt-6 w-full">
+      <h3 class="text-lg font-bold mb-2">Guess History</h3>
+      <div class="space-y-2">
+        @for (guesses of guessHistory(); track $index) {
+          <div class="flex justify-between px-4 py-2 bg-base-200 rounded-md">
+            <div>{{ guesses[0] }} Bulls</div>
+            <div>{{ guesses[1] }} Cows</div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</main>
