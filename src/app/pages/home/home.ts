@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { Confetti } from '../../services/confetti';
 
 import { NgFor, NgForOf, NgIf } from '@angular/common'; // ✅ add this
@@ -8,6 +8,7 @@ const DIGITS = 4;
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   imports: [NgForOf, FormsModule, NgFor, NgIf],
   templateUrl: './home.html',
   styleUrl: './home.scss'
@@ -25,11 +26,18 @@ export class Home {
 // gameState = signal<'playing' | 'won' | 'lost'>('playing');
   gameState = signal('initial');
 
-  habits: {name: string, isCompleted: boolean}[] = [
+  habits = signal<{name: string, isCompleted: boolean}[]>([
     {name: "I like cows! 😅", isCompleted: false},
     {name: "Signals are neat! 📡", isCompleted: false},
     {name: "Eat moar Chik'n! 🐔", isCompleted: false}
-  ];
+  ]);
+
+  allHabitsCompleted = computed(() => {
+    const completed = this.habits().every(habit => habit.isCompleted);
+    console.log('All habits completed?', completed);
+    console.log('Current habits state:', this.habits());
+    return completed;
+  });
 
 
 
@@ -55,10 +63,27 @@ export class Home {
 }
 
   onCheckboxChange(event: MouseEvent, index: number): void {
-    const mouseEvent = event as MouseEvent;
-    console.log(mouseEvent);
-    this.habits[index].isCompleted = true;
-    this.confettiService.launchConfetti(mouseEvent);
+    event.preventDefault(); // Prevent default to handle the state ourselves
+    
+    this.habits.update(habits => {
+      const newHabits = [...habits]; // Create a new array for immutability
+      newHabits[index] = {
+        ...habits[index],
+        isCompleted: !habits[index].isCompleted // Toggle the state
+      };
+      return newHabits;
+    });
+
+    // Get the updated state after the update
+    const isNowCompleted = this.habits()[index].isCompleted;
+    
+    if (isNowCompleted) {
+      this.confettiService.launchConfetti(event);
+    }
+
+    console.log('Habit updated:', index, 'Completed:', isNowCompleted);
+    console.log('All habits:', this.habits());
+    console.log('All completed?', this.allHabitsCompleted());
   }
 
   inputChange(event: Event): void {

@@ -14,7 +14,7 @@
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
     <div
       class="card w-72 bg-base-100 shadow-md hover:shadow-lg transition-shadow duration-200"
-      *ngFor="let habit of habits; let i = index"
+      *ngFor="let habit of habits(); let i = index"
     >
       <div class="card-body">
         <div class="flex justify-between items-center">
@@ -22,7 +22,7 @@
           <input
             type="checkbox"
             class="checkbox checkbox-primary"
-            [(ngModel)]="habit.isCompleted"
+            [checked]="habit.isCompleted"
             (click)="onCheckboxChange($event, i)"
           />
         </div>
@@ -31,7 +31,8 @@
   </div>
 
   <!-- Bulls and Cows Section -->
-  <div class="card w-full max-w-md bg-base-100 shadow-lg p-8 flex flex-col items-center text-center">
+  
+  <div *ngIf="allHabitsCompleted()" class="card w-full max-w-md bg-base-100 shadow-lg p-8 flex flex-col items-center text-center">
     <h2 class="text-3xl font-bold mb-2">Bulls and Cows</h2>
     <p class="mb-4 text-gray-600">
       Rules for Bulls and Cows game
