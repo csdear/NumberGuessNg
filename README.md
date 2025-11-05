@@ -1,5 +1,6 @@
 NumberGuessNg.
 The classic bulls and cows game.  Bull = correct position.  Cow = correct number
+<img width="1049" height="793" alt="chrome_RcSTsohafS" src="https://github.com/user-attachments/assets/8b257744-1bcc-4b56-b71c-027e1aa25e35" />
 
 
 |TAGS|
